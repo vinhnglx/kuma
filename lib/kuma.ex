@@ -1,18 +1,28 @@
 defmodule Kuma do
-  @moduledoc """
-  Documentation for Kuma.
+  @doc "Init the Kuma-Dict"
+  def new, do: MultiKuma.new
+
+  @doc """
+    Add a new entry to Kuma-Dict
+
+    Example:
+
+      iex > Kuma.new |> Kuma.add_entry(%{date: {2017,7,19}, title: "abc"})
+      %{{2017,7,19} => "abc"}
   """
-
-  # Init the Kuma-Dict
-  def new, do: Map.new
-
-  # Add a new entry to Kuma-Dict
-  def add_entry(kuma_list, date, title) do
-    kuma_list |> Map.put(date, title)
+  def add_entry(kuma_list, entry) do
+    MultiKuma.add(kuma_list, entry.date, entry.title)
   end
 
-  # List of entries
+  @doc """
+    List of entries by date
+
+    Example:
+
+      iex > Kuma.entries(kuma_list, {2017,7,19})
+      "abc"
+  """
   def entries(kuma_list, date) do
-    kuma_list |> Map.get(date)
+    MultiKuma.get(kuma_list, date)
   end
 end
