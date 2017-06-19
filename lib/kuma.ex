@@ -3,16 +3,16 @@ defmodule Kuma do
   Documentation for Kuma.
   """
 
-  @doc """
-  Hello world.
+  # Init the Kuma-Dict
+  def new, do: Map.new
 
-  ## Examples
+  # Add a new entry to Kuma-Dict
+  def add_entry(kuma_list, date, title) do
+    kuma_list |> Map.put(date, title)
+  end
 
-      iex> Kuma.hello
-      :world
-
-  """
-  def hello do
-    :world
+  # List of entries
+  def entries(kuma_list, date) do
+    kuma_list |> Map.get(date)
   end
 end
