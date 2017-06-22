@@ -11,7 +11,7 @@ defmodule Kuma do
       %{{2017,7,19} => "abc"}
   """
   def add_entry(kuma_list, entry) do
-    MultiKuma.add(kuma_list, entry.date, entry.title)
+    MultiKuma.add(kuma_list, entry)
   end
 
   @doc """
