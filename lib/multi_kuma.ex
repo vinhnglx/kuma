@@ -1,4 +1,6 @@
 defmodule MultiKuma do
+  defstruct auto_id: 1, entries: %{}
+
   @moduledoc """
   Documentation for Kuma.
   """
@@ -7,22 +9,23 @@ defmodule MultiKuma do
     Init a new Kuma list
   """
   def new do
-    Map.new
+    %MultiKuma{}
   end
 
   @doc """
     Add a new kuma to list
-
-    Two different values on a same key will be save as list of elements
   """
-  def add(list, key, value) do
-    Map.update(list, key, value, fn(x) -> [x] ++ ["def"] end)
+  def add(%MultiKuma{auto_id: auto_id, entries: entries} = list, entry) do # This mean two parameters - first parameter is using pattern matching.
+    entry = Map.put(entry, :id, auto_id)
+    new_entries = Map.put(entries, auto_id, entry)
+
+    %MultiKuma{list | entries: new_entries, auto_id: auto_id + 1}
   end
 
   @doc """
     Get a kuma based on key
   """
-  def get(list, key) do
-    Map.get(list, key)
+    def entries(%MultiKuma{entries: entries}, date) do
+    entries |> Enum.filter(fn({_k, v})-> v.date == date end) |> Enum.map(fn({_k, v})-> v end)
   end
 end
