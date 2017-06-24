@@ -20,9 +20,20 @@ defmodule Kuma do
     Example:
 
       iex > Kuma.entries(kuma_list, {2017,7,19})
-      "abc"
+      [%{date: {2017, 7, 19}, id: 2, title: "def"}]
   """
   def entries(kuma_list, date) do
-    MultiKuma.get(kuma_list, date)
+    MultiKuma.entries(kuma_list, date)
+  end
+
+  @doc """
+    Update an entry
+
+    Example:
+
+      iex > Kuma.update(kuma_list, 1, &Map.put(&1, :title, "New content"))
+  """
+  def update(kuma_list, id, updater_fn) do
+    MultiKuma.update(kuma_list, id, updater_fn)
   end
 end

@@ -25,7 +25,20 @@ defmodule MultiKuma do
   @doc """
     Get a kuma based on key
   """
-    def entries(%MultiKuma{entries: entries}, date) do
+  def entries(%MultiKuma{entries: entries}, date) do
     entries |> Enum.filter(fn({_k, v})-> v.date == date end) |> Enum.map(fn({_k, v})-> v end)
+  end
+
+  @doc """
+    Update a kuma
+  """
+  def update(%MultiKuma{entries: entries} = list, entry_id, updater_fun) do
+    case entries[entry_id] do
+      nil -> list
+      old_entry ->
+        new_entry = updater_fun.(old_entry)
+        new_entries = Map.put(entries, new_entry.id, new_entry)
+        %MultiKuma{list | entries: new_entries}
+    end
   end
 end
