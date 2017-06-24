@@ -8,8 +8,14 @@ defmodule MultiKuma do
   @doc """
     Init a new Kuma list
   """
-  def new do
-    %MultiKuma{}
+  def new(entries \\ []) do
+    Enum.reduce(
+      entries,
+      %MultiKuma{}, # accumulator
+      fn(entry, kuma_acc) -> # kuma_acc - kuma_accumulator
+        add(kuma_acc, entry)
+      end
+    )
   end
 
   @doc """

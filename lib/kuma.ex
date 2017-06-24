@@ -1,6 +1,15 @@
 defmodule Kuma do
-  @doc "Init the Kuma-Dict"
-  def new, do: MultiKuma.new
+  @doc """
+    Init the Kuma
+
+    Example:
+
+      iex > entries = [%{date: {2017,07,24}, title: "abc"}, %{date: {2017,07,25}, title: "def"}]
+      iex > Kuma.new(entries)
+  """
+  def new(entries) do
+    MultiKuma.new(entries)
+  end
 
   @doc """
     Add a new entry to Kuma-Dict
@@ -8,7 +17,6 @@ defmodule Kuma do
     Example:
 
       iex > Kuma.new |> Kuma.add_entry(%{date: {2017,7,19}, title: "abc"})
-      %{{2017,7,19} => "abc"}
   """
   def add_entry(kuma_list, entry) do
     MultiKuma.add(kuma_list, entry)
